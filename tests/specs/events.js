@@ -53,6 +53,18 @@ describe("Events", function (){
       object.trigger('count'); // shouldn't trigger the event
       expect(object.count).toEqual(1);
     });
+    it('removes all listeners if the first argument is all', function (){
+      object.on('countUp', counterUp);
+      object.on('countDown', counterDown);
+      function counterUp(){
+        this.count++;
+      }
+      function counterDown(){
+        this.count--;
+      }
+      object.off("all");
+      expect(object._listeners).toEqual({});
+    });
     it("removes multiple listeners from object", function(){
       object.on('countUp', counterUp);
       object.on('countDown', counterDown);
@@ -99,7 +111,7 @@ describe("Events", function (){
 
       expect(object.count).toEqual(1);
     });
-    it("should remove the property from the associative  array after its been triggered once", function(){
+    it("should remove the property from the passociative  array after its been triggered once", function(){
       object.once('count', counter);
       function counter(){
         this.count++;
