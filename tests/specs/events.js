@@ -9,7 +9,7 @@ describe("Events", function (){
       function counter(){
         this.count++;
       }
-      expect(object._listeners).toEqual({ count: { callback: counter} });
+      expect(object._listeners).toEqual({ count: { callback: counter, once: false } });
     });
   });
 
@@ -59,6 +59,32 @@ describe("Events", function (){
         this.count++;
       }
       object.off('count');
+      expect(object._listeners.hasOwnProperty("count")).toBe(false);
+    });
+  });
+
+  describe("Once Method", function (){
+    it("removes listener from object after it has been triggered", function(){
+      object.once('count', counter);
+      function counter(){
+        this.count++;
+      }
+      object.trigger('count');
+      expect(object.count).toEqual(1);
+
+      object.trigger('count');
+      object.trigger('count');
+      object.trigger('count');
+
+      expect(object.count).toEqual(1);
+    });
+    it("should remove the property from the associative  array after its been triggered once", function(){
+      object.once('count', counter);
+      function counter(){
+        this.count++;
+      }
+
+      object.trigger("count");
       expect(object._listeners.hasOwnProperty("count")).toBe(false);
     });
   });
