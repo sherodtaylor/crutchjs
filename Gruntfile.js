@@ -11,9 +11,10 @@ module.exports = function(grunt) {
       }
     },
     jasmine: {
-      src: '<%= pkg.name %>.js',
+      src: 'lib/<%= pkg.name %>.js',
       options: {
-        specs: 'tests/spec/RubyJS-Spec.js',
+        vendor: 'tests/vendor/underscore-min.js',
+        specs: 'tests/specs/events.js',
         version: '1.3.1'
       }
     }
