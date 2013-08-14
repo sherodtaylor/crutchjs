@@ -53,6 +53,27 @@ describe("Events", function (){
       object.trigger('count'); // shouldn't trigger the event
       expect(object.count).toEqual(1);
     });
+    it("removes multiple listeners from object", function(){
+      object.on('countUp', counterUp);
+      object.on('countDown', counterDown);
+      function counterUp(){
+        this.count++;
+      }
+      function counterDown(){
+        this.count--;
+      }
+      object.trigger('countUp');
+      object.trigger('countUp');
+      expect(object.count).toEqual(2);
+      object.trigger('countDown');
+      expect(object.count).toEqual(1);
+      object.trigger('countDown');
+      expect(object.count).toEqual(0);
+
+      object.off('countUp', 'countDown');
+      object.trigger('count'); // shouldn't trigger the event
+      expect(object.count).toEqual(0);
+    });
     it("should remove the property from the associative  array", function(){
       object.on('count', counter);
       function counter(){
