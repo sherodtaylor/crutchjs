@@ -32,7 +32,7 @@ describe("Events", function (){
       object.on('count', counter);
       function counter( start, iterations ){
        this.count = this.count || start;
-        for ( var i = 0; i > iterations; ++i){
+        for ( var i = 0; i < iterations; ++i){
           this.count++;
         }
       };
