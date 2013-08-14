@@ -15,6 +15,7 @@ describe("Events", function (){
 
   describe("Trigger Event", function (){
     it("triggers an event", function (){
+      _.extend(object, Crutch.Events);
       object.on('count', counter);
       function counter(){
         this.count++;
@@ -28,6 +29,8 @@ describe("Events", function (){
       expect(object.count).toEqual(3);
     });
     it("triggers an event passing multiple variables", function (){
+      object = {count: 0};
+      _.extend(object, Crutch.Events);
       object.on('count', counter);
       function counter( start, iterations ){
        this.count = this.count || start;
@@ -42,6 +45,8 @@ describe("Events", function (){
 
   describe("Off", function (){
     it("removes listener from object", function(){
+      object = {count: 0};
+      _.extend(object, Crutch.Events);
       object.on('count', counter);
       function counter(){
         this.count++;
@@ -54,6 +59,8 @@ describe("Events", function (){
       expect(object.count).toEqual(1);
     });
     it("should remove the property from the associative  array", function(){
+      object = {count: 0};
+      _.extend(object, Crutch.Events);
       object.on('count', counter);
       function counter(){
         this.count++;
