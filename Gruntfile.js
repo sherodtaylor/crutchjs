@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: '<%= pkg.name %>.js',
+        src: 'lib/<%= pkg.name %>.js',
         dest: 'build/<%= pkg.name %>.min.js'
       }
     },
@@ -17,14 +17,18 @@ module.exports = function(grunt) {
         specs: 'tests/specs/events.js',
         version: '1.3.1'
       }
+    },
+    jshint: {
+      src:['lib/<%= pkg.name %>.js', 'tests/specs/events.js']
     }
   });
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Default task.
-  grunt.registerTask('default', ['jasmine','uglify']);
-  grunt.registerTask('travis', ['jasmine']);
+  grunt.registerTask('default', ['jshint','jasmine','uglify']);
+  grunt.registerTask('travis', ['jshint','jasmine']);
 
   // // Travis CI task.
 };

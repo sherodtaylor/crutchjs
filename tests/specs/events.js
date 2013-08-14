@@ -6,7 +6,7 @@ describe("Events", function (){
       object.on('count', counter);
       function counter(){
         this.count++;
-      };
+      }
       expect(object._listeners).toEqual({ count: { callback: counter} });
     });
   });
@@ -17,7 +17,7 @@ describe("Events", function (){
       object.on('count', counter);
       function counter(){
         this.count++;
-      };
+      }
       expect(object.count).toEqual(0);
       object.trigger('count');
       expect(object.count).toEqual(1);
@@ -35,7 +35,7 @@ describe("Events", function (){
         for ( var i = 0; i < iterations; ++i){
           this.count++;
         }
-      };
+      }
       object.trigger('count', 1, 4);
       expect(object.count).toEqual(5);
     });
