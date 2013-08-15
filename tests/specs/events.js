@@ -49,7 +49,7 @@ describe("Events", function (){
       object.trigger('count');
       expect(object.count).toEqual(1);
 
-      object.off('count');
+      object.off('count', object);
       object.trigger('count'); // shouldn't trigger the event
       expect(object.count).toEqual(1);
     });
@@ -119,6 +119,34 @@ describe("Events", function (){
 
       object.trigger("count");
       expect(object._listeners.hasOwnProperty("count")).toBe(false);
+    });
+  });
+
+  describe("ListenTo Event", function (){
+    it("be able attach events to other objects", function (){
+      var obj2 = { name: 'obj2' };
+      _.extend(obj2, Crutch.Events);
+      object.listenTo( obj2, 'count', function (){
+        object.count++;
+      });
+      obj2.trigger('count');
+      expect(object.count).toEqual(1);
+      expect(obj2.hasOwnProperty("_listeners")).toBe(true);
+    });
+  });
+
+  describe("listenOnce Event", function (){
+    it("attaches an event to another object", function (){
+      var obj2 = { name: 'obj2' };
+      _.extend(obj2, Crutch.Events);
+      object.listenOnce( obj2, 'count', function (){
+        object.count++;
+      });
+      obj2.trigger('count');
+      expect(object.count).toEqual(1);
+      // It shouldn't trigger
+      obj2.trigger('count');
+      expect(object.count).toEqual(1);
     });
   });
 });
