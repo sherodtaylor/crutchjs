@@ -14,12 +14,12 @@ module.exports = function(grunt) {
       src: 'lib/<%= pkg.name %>.js',
       options: {
         vendor: 'tests/vendor/underscore-min.js',
-        specs: 'tests/specs/events.js',
+        specs: ['tests/specs/events.js','tests/specs/model.js'],
         version: '1.3.1'
       }
     },
     jshint: {
-      src:['lib/<%= pkg.name %>.js', 'tests/specs/events.js']
+      src:['lib/<%= pkg.name %>.js', 'tests/specs/events.js','tests/specs/model.js'],
     }
   });
   grunt.loadNpmTasks('grunt-contrib-jasmine');
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint','jasmine','uglify']);
-  grunt.registerTask('travis', ['jshint','jasmine']);
 
   // // Travis CI task.
+  grunt.registerTask('travis', ['jshint','jasmine']);
 };
